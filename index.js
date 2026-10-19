@@ -6,19 +6,19 @@ const {
   PermissionsBitField,
   EmbedBuilder,
 } = require('discord.js');
-const express = require('express');
-const https   = require('https');
-const http    = require('http');
+const http  = require('http');
+const https = require('https');
 
 // ──────────────────────────────────────────────
 // Web server - bat buoc de Render khong ngat bot
+// Dung http co san trong Node, khong can express
 // ──────────────────────────────────────────────
-const app  = express();
 const PORT = process.env.PORT || 3000;
 
-app.get('/', (_req, res) => res.send('[OK] Bot is running.'));
-
-app.listen(PORT, () => {
+http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('[OK] Bot is running.');
+}).listen(PORT, () => {
   console.log(`[WEB] Listening on port ${PORT}`);
 });
 
